@@ -1,14 +1,16 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
-const Joi = require("joi");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-const ExpressError = require("./utils/ExpressError");
 
+// Routes
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const playingGroupsRouter = require("./routes/playing-groups");
+const sessionsRouter = require("./routes/sessions");
+const playersRouter = require("./routes/players");
+const monthsRouter = require("./routes/months");
 
 mongoose.connect("mongodb://localhost:27017/poker-tracker");
 mongoose.connection.on(
@@ -27,12 +29,15 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-app.use("/groups", playingGroupsRouter);
 app.use("/users", usersRouter);
+app.use("/groups", playingGroupsRouter);
+app.use("/sessions", sessionsRouter);
+app.use("/players", playersRouter);
+app.use("/months", monthsRouter);
 
-const handleCastError = (err) => {
-  return new ExpressError(`Operation failed, ${err.message}`, 400);
-};
+// const handleCastError = (err) => {
+//   return new ExpressError(`Operation failed, ${err.message}`, 400);
+// };
 
 // app.use((err, req, res, next) => {
 //   if (err.name === "CastError") err = handleCastError(err);
@@ -41,7 +46,6 @@ const handleCastError = (err) => {
 
 app.use((err, req, res, next) => {
   const { message = "Something went wrong.", statusCode = 500 } = err;
-  // const e = new ExpressError("Something went wrong", 500);
   res.status(statusCode).send(message);
 });
 
