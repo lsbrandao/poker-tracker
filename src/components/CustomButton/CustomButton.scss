@@ -1,0 +1,13 @@
+button {
+  color: #fff;
+  background-color: #01cc88;
+  width: 120px;
+  height: 60px;
+  border: 0;
+  border-radius: 10px;
+  padding: 16px, 40px, 16px, 40px;
+
+  &.secondary {
+    background-color: #ff2e63;
+  }
+}
