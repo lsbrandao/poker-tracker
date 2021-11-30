@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Login from "./views/LoginPage/Login";
 import PlayingGroups from "./views/PlayingGroups/PlayingGroups";
-import AuthProvider from "./contexts/Auth/AuthContext";
+import { AuthProvider } from "./contexts/Auth/AuthContext";
 import RequireAuth from "./contexts/Auth/RequireAuth";
 
 function App() {

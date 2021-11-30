@@ -2,7 +2,7 @@
 import { useAuth } from "./AuthContext";
 
 export default function RequireAuth({ children }: { children: JSX.Element }) {
-  let auth = useAuth();
+  const auth = useAuth();
   console.log(auth);
 
   // if (!auth.user) {

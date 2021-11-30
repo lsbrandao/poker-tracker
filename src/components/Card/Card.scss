@@ -1,9 +1,11 @@
+@import "../../theme/theme.scss";
+
 .card-container {
   display: flex;
   align-items: center;
   width: 90%;
   height: 90px;
-  background: #192259;
+  background: $primaryColor;
   border-radius: 8px;
   padding: 8px 16px;
 

@@ -1,3 +1,5 @@
+@import "../../theme/theme.scss";
+
 .login-page-container {
   align-items: stretch;
 
@@ -16,7 +18,7 @@
     background-color: #fff;
 
     h1 {
-      color: #0e164d;
+      color: $primaryColor;
       font-weight: bold;
       font-size: 18px;
       line-height: 30px;
@@ -70,7 +72,7 @@
     font-weight: 550;
     font-size: 16px;
     line-height: 28px;
-    color: #0e164d;
+    color: $primaryColor;
   }
 
   input[type="text"] {
@@ -82,12 +84,12 @@
     border-radius: 8px;
 
     &:focus-visible {
-      outline: #0e164d auto 1px;
+      outline: $primaryColor auto 1px;
     }
   }
 
   a {
-    color: #0e164d;
+    color: $primaryColor;
     text-decoration: none;
     font-style: normal;
     font-weight: 550;

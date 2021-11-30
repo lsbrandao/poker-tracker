@@ -1,7 +1,9 @@
+@import "./theme/theme.scss";
+
 html,
 body {
   height: 100%;
-  background-color: #0e164d;
+  background-color: $primaryColor;
   max-width: 800px;
   margin: auto;
   box-sizing: border-box;

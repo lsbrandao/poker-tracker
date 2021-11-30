@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { fakeAuthProvider } from "./auth";
 
 interface AuthContextType {
@@ -9,16 +9,13 @@ interface AuthContextType {
 
 const AuthContext = React.createContext<AuthContextType>(null!);
 
-export function useAuth() {
-  return useContext(AuthContext);
-}
 
-export default function AuthProvider({
+export const AuthProvider = ({
   children,
 }: {
   children: React.ReactNode;
-}) {
-  const [user, setUser] = React.useState<any>(null);
+}) => {
+  const [user, setUser] = useState<any>(null);
 
   const signin = (newUser: string, callback: VoidFunction) => {
     console.log("sign in from provider");
@@ -39,3 +36,7 @@ export default function AuthProvider({
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
+
+export const useAuth = () => useContext(AuthContext);
+
+
