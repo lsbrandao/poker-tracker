@@ -23,9 +23,6 @@ const Login = () => {
 
   const handleRegister = (event: any) => {
     event.preventDefault();
-
-    console.log(`Register`);
-    console.log(`The name you entered was: ${email}`);
   };
 
   return (
@@ -53,7 +50,6 @@ const Login = () => {
             />
           </label>
           <div className="cta-container">
-            {/* <button type="submit">Sign In</button> */}
             <CustomButton
               type="submit"
               buttonStyle={ButtonStyle.PRIMARY}

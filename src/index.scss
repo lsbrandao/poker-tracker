@@ -46,3 +46,12 @@ code {
     margin: 16px 16px 48px;
   }
 }
+
+.flex-container {
+  display: flex;
+  width: 100%;
+}
+
+.space-between {
+  justify-content: space-between;
+}

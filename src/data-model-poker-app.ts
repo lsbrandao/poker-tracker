@@ -1,4 +1,4 @@
-const user: user = {
+export const user: user = {
   id: "userId",
   playingGroups: [
     {
