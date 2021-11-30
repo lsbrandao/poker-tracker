@@ -1,5 +1,5 @@
 import React from "react";
-import './CustomButton.scss'
+import "./CustomButton.scss";
 
 interface Props {
   type: "button" | "submit" | "reset" | undefined;
@@ -9,24 +9,16 @@ interface Props {
 }
 
 export enum ButtonStyle {
-  PRIMARY = 'primary',
-  SECONDARY = 'secondary'
+  PRIMARY = "primary",
+  SECONDARY = "secondary",
 }
 
-const Button: React.FC<Props> = ({
-  type,
-  children,
-  onClick,
-}) => {
+const Button: React.FC<Props> = ({ type, children, onClick }) => {
   return (
-    <button
-      onClick={onClick}
-      className={type}
-      type={type}
-    >
+    <button onClick={onClick} className={`custom-button ${type}`} type={type}>
       {children}
     </button>
   );
-}
+};
 
 export default Button;

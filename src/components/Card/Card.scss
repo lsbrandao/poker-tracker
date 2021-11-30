@@ -1,0 +1,14 @@
+.card-container {
+  display: flex;
+  align-items: center;
+  width: 90%;
+  height: 90px;
+  background: #192259;
+  border-radius: 8px;
+  padding: 8px 16px;
+
+  h2 {
+    font-size: 20px;
+    color: #fff;
+  }
+}

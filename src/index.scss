@@ -4,6 +4,13 @@ body {
   background-color: #0e164d;
   max-width: 800px;
   margin: auto;
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }
 
 #root {
@@ -22,4 +29,18 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 900px;
+  height: 100%;
+
+  .page-title {
+    color: #fff;
+    align-self: flex-start;
+    margin: 16px 16px 48px;
+  }
 }

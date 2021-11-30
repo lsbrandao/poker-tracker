@@ -1,14 +1,22 @@
 import { Route, Routes } from "react-router-dom";
-import Login from './views/LoginPage/Login';
-import PlayingGroups from './views/PlayingGroups/PlayingGroups';
-import AuthProvider from "./contexts/AuthContext";
+import Login from "./views/LoginPage/Login";
+import PlayingGroups from "./views/PlayingGroups/PlayingGroups";
+import AuthProvider from "./contexts/Auth/AuthContext";
+import RequireAuth from "./contexts/Auth/RequireAuth";
 
 function App() {
   return (
     <AuthProvider>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/groups" element={<PlayingGroups />} />
+        <Route
+          path="/groups"
+          element={
+            <RequireAuth>
+              <PlayingGroups />
+            </RequireAuth>
+          }
+        />
         {/* <Route index element={<Home />} />
       <Route path="about" element={<About />} />
       <Route path="dashboard" element={<Dashboard />} /> */}
@@ -19,7 +27,6 @@ function App() {
         {/* <Route path="*" element={<NoMatch />} /> */}
       </Routes>
     </AuthProvider>
-
   );
 }
 
