@@ -5,21 +5,22 @@ import { AuthProvider } from "./contexts/Auth/AuthContext";
 import RequireAuth from "./contexts/Auth/RequireAuth";
 
 import { UserProvider } from "./contexts/UserContext/UserContext";
+import EditGroup from "./views/EditGroup/EditGroup";
+import Layout from "./components/Layout/Layout";
 
 function App() {
   return (
     <AuthProvider>
       <UserProvider>
         <Routes>
-          <Route path="/" element={<Login />} />
-          <Route
-            path="/groups"
-            element={
-              <RequireAuth>
-                <PlayingGroups />
-              </RequireAuth>
-            }
-          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={
+            <RequireAuth>
+              <Layout />
+            </RequireAuth>}>
+            <Route path="/groups" element={<PlayingGroups />} />
+            <Route path="/edit-groups" element={<EditGroup />} />
+          </Route>
           {/* <Route index element={<Home />} />
       <Route path="about" element={<About />} />
       <Route path="dashboard" element={<Dashboard />} /> */}

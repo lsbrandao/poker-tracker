@@ -1,26 +1,28 @@
 import { createContext, useContext, useReducer } from "react";
 import UserReducer from "./UserReducer"
-import { User } from "../../models/user";
+import { GlobalState, PlayingGroup } from "../../models/user";
 
 export interface UserActions {
-  addPlayingGroup: () => void
-  editPlayingGroup: (id: string) => void
+  addPlayingGroup: (group: PlayingGroup) => void
+  selectPlayingGroup: (group: PlayingGroup) => void
+  editPlayingGroup: (group: PlayingGroup) => void
   deletePlayingGroup: (id: string) => void;
 }
 
 export enum UserActionsTypes {
   ADD_GROUP,
+  SELECT_GROUP,
   EDIT_GROUP,
   DELETE_GROUP,
 }
 
 //initial state
-const initialState: User = {
+const initialState: GlobalState = {
   _id: '123',
   playingGroups: [{
     _id: '1234',
     name: "Group 1",
-    playerNames: ["Player 1", "Player 2", "Player 3"],
+    playersNames: ["Player 1", "Player 2", "Player 3"],
     playedMonths: [
       {
         name: "November",
@@ -95,8 +97,9 @@ const initialState: User = {
 //Creating contexts
 export const UserContext = createContext(initialState);
 export const UserUpdateContext = createContext<UserActions>({
-  addPlayingGroup: () => null,
-  editPlayingGroup: (id: string) => null,
+  addPlayingGroup: (group: PlayingGroup) => null,
+  selectPlayingGroup: (group: PlayingGroup) => null,
+  editPlayingGroup: (group: PlayingGroup) => null,
   deletePlayingGroup: (id: string) => null,
 });
 
@@ -109,16 +112,22 @@ export const UserProvider = ({ children }: { children: JSX.Element }) => {
   const [state, dispatch] = useReducer(UserReducer, initialState);
 
   //Actions
-  function addPlayingGroup() {
+  function addPlayingGroup(group: PlayingGroup) {
     dispatch({
       type: UserActionsTypes.ADD_GROUP,
-      payload: null
+      payload: group
     })
   }
-  function editPlayingGroup(id: string) {
+  function selectPlayingGroup(group: PlayingGroup) {
+    dispatch({
+      type: UserActionsTypes.SELECT_GROUP,
+      payload: group
+    })
+  }
+  function editPlayingGroup(group: PlayingGroup) {
     dispatch({
       type: UserActionsTypes.EDIT_GROUP,
-      payload: id
+      payload: group
     })
   }
   function deletePlayingGroup(id: string) {
@@ -130,7 +139,7 @@ export const UserProvider = ({ children }: { children: JSX.Element }) => {
 
   return (
     <UserContext.Provider value={{ playingGroups: state.playingGroups }}>
-      <UserUpdateContext.Provider value={{ addPlayingGroup, editPlayingGroup, deletePlayingGroup }}>
+      <UserUpdateContext.Provider value={{ addPlayingGroup, selectPlayingGroup, editPlayingGroup, deletePlayingGroup }}>
         {children}
       </UserUpdateContext.Provider>
     </UserContext.Provider >

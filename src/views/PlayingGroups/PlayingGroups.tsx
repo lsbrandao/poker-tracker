@@ -1,33 +1,40 @@
-import Card from "../../components/Card/Card";
+import { useNavigate } from "react-router-dom";
 import "./PlayingGroups.scss";
+import Card from "../../components/Card/Card";
 import PlusIcon from "../../assets/plus-icon.svg";
-import { UserActions, useUser, useUserUpdate } from "../../contexts/UserContext/UserContext"
+import EditIcon from "../../assets/edit-icon.svg";
+import { useUser } from "../../contexts/UserContext/UserContext"
 import { PlayingGroup } from "../../models/user";
-
 
 const PlayingGroups = () => {
   const { playingGroups } = useUser();
-  const userUpdate: UserActions = useUserUpdate();
+  const navigate = useNavigate();
+  console.log(playingGroups)
+
+  const onEditGroup = (group: PlayingGroup) => {
+    navigate("/edit-groups", { state: group })
+  }
 
   return (
     <section className="page-container playing-groups-container">
       <h1 className="page-title">Playing Groups</h1>
 
-      {playingGroups.map((group: PlayingGroup) => (
-        <Card key={group._id}>
+      {playingGroups.map((group: PlayingGroup, index: number) => (
+        < Card key={group._id} >
           <div className="flex-container space-between">
-            <h2>{group.name}</h2>
-            <button onClick={(e) => userUpdate.editPlayingGroup('123')}>
-              Edit
+            <h2 className="group-name">{group.name}</h2>
+            <button className="edit-group-btn" onClick={() => onEditGroup(group)}>
+              <img src={EditIcon} alt="Edit group" />
             </button>
           </div>
         </Card>
-      ))}
+      ))
+      }
 
-      <button className="create-new-group-btn" onClick={(e) => userUpdate.addPlayingGroup()}>
+      <button className="create-new-group-btn" onClick={() => navigate("/edit-groups")}>
         <img src={PlusIcon} alt="Create new group" />
       </button>
-    </section>
+    </section >
   );
 };
 

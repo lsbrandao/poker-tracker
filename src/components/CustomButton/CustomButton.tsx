@@ -4,6 +4,7 @@ import "./CustomButton.scss";
 interface Props {
   type: "button" | "submit" | "reset" | undefined;
   buttonStyle: ButtonStyle;
+  size?: ButtonSize;
   children?: React.ReactNode;
   onClick?: () => void;
 }
@@ -13,9 +14,15 @@ export enum ButtonStyle {
   SECONDARY = "secondary",
 }
 
-const Button: React.FC<Props> = ({ type, children, onClick }) => {
+export enum ButtonSize {
+  SMALL = "sm",
+  MEDIUM = "md",
+  LARGE = "lg",
+}
+
+const Button: React.FC<Props> = ({ type, children, onClick, size = 'md' }) => {
   return (
-    <button onClick={onClick} className={`custom-button ${type}`} type={type}>
+    <button onClick={onClick} className={`custom-button ${type} ${size}`} type={type}>
       {children}
     </button>
   );

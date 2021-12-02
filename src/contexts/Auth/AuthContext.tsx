@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState, createContext } from "react";
 import { fakeAuthProvider } from "./auth";
 
 interface AuthContextType {
@@ -7,9 +7,13 @@ interface AuthContextType {
   signout: (callback: VoidFunction) => void;
 }
 
-const AuthContext = React.createContext<AuthContextType>(null!);
+//Creating contexts
+const AuthContext = createContext<AuthContextType>(null!);
 
+//Exposing custom hooks
+export const useAuth = () => useContext(AuthContext);
 
+// Provider component
 export const AuthProvider = ({
   children,
 }: {
@@ -37,6 +41,5 @@ export const AuthProvider = ({
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
-export const useAuth = () => useContext(AuthContext);
 
 

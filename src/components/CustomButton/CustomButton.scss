@@ -12,4 +12,13 @@
   &.secondary {
     background-color: $errorColor;
   }
+
+  &.sm {
+    width: 110px;
+    height: 48px;
+  }
+
+  &.lg {
+    width: 218px;
+  }
 }

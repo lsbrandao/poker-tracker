@@ -1,0 +1,84 @@
+@import "../../theme/theme.scss";
+
+.edit-group-container {
+  width: 90%;
+  margin: auto;
+
+  .group-name-label {
+    margin-bottom: 40px;
+  }
+
+  .player-names-container {
+    ul {
+      margin-top: 0;
+    }
+    li {
+      margin-left: -16px;
+      font-size: 20px;
+      padding: 8px 0;
+
+      .player-item {
+        display: flex;
+        justify-content: space-between;
+        line-height: 24px;
+      }
+    }
+
+    .delete-player-btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      background: $errorColor;
+      border: 0;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .new-player-form {
+    display: flex;
+    width: 100%;
+    align-items: center;
+
+    input {
+      margin: 0 4px 0 0;
+    }
+  }
+
+  .new-player-btn-container {
+    margin-top: 16px;
+    margin-bottom: 120px;
+    width: 100%;
+
+    .link-btn {
+      background-color: $primaryColor;
+
+      .icon-wrapper {
+        height: 20px;
+        width: 20px;
+        background: $successColor;
+        border-radius: 50%;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 8px;
+
+        img {
+          height: 12px;
+          width: 12px;
+        }
+      }
+    }
+  }
+
+  .create-group-btn-container {
+    position: fixed;
+    bottom: 0px;
+    height: 100px;
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    background: $secondaryColor;
+  }
+}

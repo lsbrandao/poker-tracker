@@ -33,6 +33,72 @@ code {
     monospace;
 }
 
+label,
+input {
+  display: block;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+li {
+  color: #fff;
+}
+
+.primary-color {
+  color: $primaryColor !important;
+}
+
+.secondary-color {
+  color: $secondaryColor !important;
+}
+
+.tertiary-color {
+  color: $tertiaryColor !important;
+}
+
+.success-color {
+  color: $successColor !important;
+}
+
+.error-color {
+  color: $errorColor !important;
+}
+
+.label-container {
+  width: 100%;
+
+  label {
+    max-width: 400px;
+    margin: auto;
+    font-style: normal;
+    font-weight: 550;
+    font-size: 16px;
+    line-height: 28px;
+    color: #fff;
+    padding-bottom: 16px;
+  }
+}
+
+input[type="text"] {
+  width: 100%;
+  height: 48px;
+  background: #fefefe;
+  border: 1px solid $successColor;
+  box-sizing: border-box;
+  border-radius: 8px;
+  margin-top: 8px;
+  padding: 8px;
+
+  &:focus-visible {
+    outline: $primaryColor auto 1px;
+  }
+}
+
 .page-container {
   display: flex;
   flex-direction: column;
@@ -41,17 +107,27 @@ code {
   height: 100%;
 
   .page-title {
+    font-size: 1.25rem;
     color: #fff;
     align-self: flex-start;
-    margin: 16px 16px 48px;
+    margin: 16px 0 48px;
   }
 }
 
 .flex-container {
   display: flex;
   width: 100%;
+  align-items: center;
+  justify-content: center;
 }
 
 .space-between {
   justify-content: space-between;
+}
+
+.link-btn {
+  background-color: #fff;
+  border: 0;
+  font-size: 16px;
+  font-weight: 550;
 }

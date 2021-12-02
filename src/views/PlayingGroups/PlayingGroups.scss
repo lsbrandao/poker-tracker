@@ -1,14 +1,29 @@
 @import "../../theme/theme.scss";
 
 .playing-groups-container {
+  width: 90%;
+  margin: auto;
+
   .create-new-group-btn {
+    background: $successColor;
     position: absolute;
     width: 72px;
     height: 72px;
     bottom: 24px;
     right: 24px;
-    background: $successColor;
     border-radius: 50%;
     border: 0;
+  }
+
+  .edit-group-btn {
+    background: $errorColor;
+    border: 0;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+  }
+
+  .group-name {
+    line-height: 32px;
   }
 }

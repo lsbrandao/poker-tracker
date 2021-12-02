@@ -7,11 +7,6 @@
     width: 100%;
   }
 
-  label,
-  input {
-    display: block;
-  }
-
   .login-form-container {
     position: relative;
     flex: 1;
@@ -29,18 +24,12 @@
     }
 
     form {
+      width: 80%;
+      margin: auto;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-
-      label {
-        padding-bottom: 16px;
-
-        input {
-          padding: 8px;
-        }
-      }
 
       .cta-container {
         margin-top: 16px;
@@ -67,33 +56,7 @@
     }
   }
 
-  label {
-    font-style: normal;
-    font-weight: 550;
-    font-size: 16px;
-    line-height: 28px;
-    color: $primaryColor;
-  }
-
-  input[type="text"] {
-    width: 272px;
-    height: 48px;
-    background: #fefefe;
-    border: 1px solid #1dc7ac;
-    box-sizing: border-box;
-    border-radius: 8px;
-
-    &:focus-visible {
-      outline: $primaryColor auto 1px;
-    }
-  }
-
-  a {
-    color: $primaryColor;
-    text-decoration: none;
-    font-style: normal;
-    font-weight: 550;
-    font-size: 16px;
-    line-height: 28px;
+  .link-btn {
+    margin-top: 16px;
   }
 }

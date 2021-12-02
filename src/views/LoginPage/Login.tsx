@@ -23,6 +23,7 @@ const Login = () => {
 
   const handleRegister = (event: any) => {
     event.preventDefault();
+    console.log("Register")
   };
 
   return (
@@ -33,31 +34,35 @@ const Login = () => {
       <div className="login-form-container">
         <h1>Easily track your poker games</h1>
         <form onSubmit={handleSubmit}>
-          <label>
-            E-mail
-            <input
-              type="text"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </label>
-          <label>
-            Password
-            <input
-              type="text"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </label>
+          <div className="label-container">
+            <label className="primary-color">
+              E-mail
+              <input
+                type="text"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </label>
+          </div>
+          <div className="label-container">
+            <label className="primary-color">
+              Password
+              <input
+                type="text"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </label>
+          </div>
           <div className="cta-container">
             <CustomButton
               type="submit"
               buttonStyle={ButtonStyle.PRIMARY}
               children="Sign In"
-            ></CustomButton>
-            <a href="/" onClick={handleRegister}>
+            />
+            <button className="link-btn primary-color" onClick={handleRegister}>
               Register
-            </a>
+            </button>
           </div>
         </form>
       </div>

@@ -23,6 +23,12 @@ export interface obj {
   ];
 }
 
+export interface GlobalState {
+  _id?: string;
+  selectedGroup?: PlayingGroup;
+  playingGroups: PlayingGroup[];
+}
+
 export interface User {
   _id?: string;
   playingGroups: PlayingGroup[];
@@ -31,7 +37,7 @@ export interface User {
 export interface PlayingGroup {
   _id?: string;
   name: string;
-  playerNames: string[];
+  playersNames: string[];
   playedMonths: PlayedMonths[];
 }
 

@@ -2,8 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/Auth/AuthContext";
 
 export default function AuthStatus() {
-  let auth = useAuth();
-  let navigate = useNavigate();
+  const auth = useAuth();
+  const navigate = useNavigate();
 
   if (!auth.user) {
     return <p>You are not logged in.</p>;
