@@ -13,17 +13,18 @@ const Login = () => {
   const navigate = useNavigate();
   const auth = useAuth();
 
-  const handleSubmit = (event: any) => {
+  const handleLogin = (event: any) => {
     event.preventDefault();
-
-    auth.signin(email, () => {
+    auth.signin(email, password, () => {
       navigate("/groups");
     });
   };
 
   const handleRegister = (event: any) => {
     event.preventDefault();
-    console.log("Register")
+    auth.signup(email, password, () => {
+      navigate("/groups");
+    });
   };
 
   return (
@@ -33,7 +34,7 @@ const Login = () => {
       </div>
       <div className="login-form-container">
         <h1>Easily track your poker games</h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleLogin}>
           <div className="label-container">
             <label className="primary-color">
               E-mail

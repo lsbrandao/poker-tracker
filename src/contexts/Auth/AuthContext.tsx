@@ -1,9 +1,9 @@
 import { useContext, useState, createContext } from "react";
-import { fakeAuthProvider } from "./auth";
 
 interface AuthContextType {
-  user: any;
-  signin: (user: string, callback: VoidFunction) => void;
+  user: { message: string, username: string, id: string };
+  signup: (email: string, password: string, callback: VoidFunction) => void;
+  signin: (email: string, password: string, callback: VoidFunction) => void;
   signout: (callback: VoidFunction) => void;
 }
 
@@ -21,22 +21,68 @@ export const AuthProvider = ({
 }) => {
   const [user, setUser] = useState<any>(null);
 
-  const signin = (newUser: string, callback: VoidFunction) => {
-    console.log("sign in from provider");
-    return fakeAuthProvider.signin(() => {
-      setUser(newUser);
-      callback();
-    });
+  const signup = async (email: string, password: string, callback: VoidFunction) => {
+    const body = {
+      username: email, password
+    }
+    await fetch('http://localhost:3000/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (!data.error) {
+          setUser(data);
+          callback();
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   };
 
-  const signout = (callback: VoidFunction) => {
-    return fakeAuthProvider.signout(() => {
-      setUser(null);
-      callback();
-    });
+  const signin = async (email: string, password: string, callback: VoidFunction) => {
+    const body = {
+      username: email, password
+    }
+    await fetch('http://localhost:3000/users/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (!data.error) {
+          setUser(data);
+          callback();
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   };
 
-  const value = { user, signin, signout };
+  const signout = async (callback: VoidFunction) => {
+    await fetch('http://localhost:3000/users/logout')
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        if (!data.error) {
+          setUser(null);
+          callback();
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  };
+
+  const value = { user, signup, signin, signout };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

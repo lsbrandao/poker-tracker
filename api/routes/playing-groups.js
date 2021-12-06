@@ -2,6 +2,7 @@ const express = require("express");
 const PlayingGroup = require("../models/playing-group");
 const catchAsync = require("../utils/catchAsync");
 const ExpressError = require("../utils/ExpressError");
+const { isLoggedIn } = require("../utils/isLoggedIn");
 const { playingGroupSchema } = require("../schemas");
 const router = express.Router();
 
@@ -18,6 +19,7 @@ const validatePlayingGroup = (req, res, next) => {
 // GET Playing groups
 router.get(
   "/",
+  isLoggedIn,
   catchAsync(async (req, res) => {
     const playingGroups = await PlayingGroup.find({});
     res.send(playingGroups);
@@ -27,6 +29,7 @@ router.get(
 // GET specific group
 router.get(
   "/deatils/:id",
+  isLoggedIn,
   catchAsync(async (req, res) => {
     const playingGroup = await PlayingGroup.findById(req.params.id);
     if (!playingGroup) {
@@ -39,6 +42,7 @@ router.get(
 // POST create new group
 router.post(
   "/",
+  isLoggedIn,
   validatePlayingGroup,
   catchAsync(async (req, res) => {
     const newPlayingGroup = new PlayingGroup(req.body);
@@ -50,6 +54,7 @@ router.post(
 // PUT update group
 router.put(
   "/:id",
+  isLoggedIn,
   validatePlayingGroup,
   catchAsync(async (req, res) => {
     const { id } = req.params;
@@ -61,6 +66,7 @@ router.put(
 // DELETE group
 router.delete(
   "/:id",
+  isLoggedIn,
   catchAsync(async (req, res) => {
     const { id } = req.params;
     await PlayingGroup.findByIdAndDelete(id);
