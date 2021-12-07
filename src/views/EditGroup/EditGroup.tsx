@@ -21,6 +21,7 @@ const EditGroup = (props: any) => {
   const { addPlayingGroup, editPlayingGroup } = useUserUpdate();
   const navigate = useNavigate();
 
+
   const onAddNewPlayer = () => {
     if (newPlayerName === '') return;
     if (playersNames.find(player => player === newPlayerName)) {

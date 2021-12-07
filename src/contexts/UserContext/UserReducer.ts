@@ -1,8 +1,16 @@
-import { GlobalState } from "../../models/user";
+import { GlobalState } from "./UserContext";
 import { UserActionsTypes } from "./UserContext";
 
 const UserReducer = (state: GlobalState, action: any) => {
   switch (action.type) {
+    case UserActionsTypes.LOAD_GROUP:
+      console.log("load groups");
+
+      console.log(action);
+      return {
+        ...state,
+        playingGroups: action.payload,
+      };
     case UserActionsTypes.ADD_GROUP:
       console.log("add");
 
@@ -28,7 +36,7 @@ const UserReducer = (state: GlobalState, action: any) => {
       };
     case UserActionsTypes.DELETE_GROUP:
       console.log("edit");
-      
+
       return {
         ...state,
         playingGroups: state.playingGroups.filter(

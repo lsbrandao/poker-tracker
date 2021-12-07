@@ -106,11 +106,17 @@ input[type="text"] {
   max-width: 900px;
   height: 100%;
 
-  .page-title {
+  .page-title,
+  .page-subtitle {
     font-size: 1.25rem;
     color: #fff;
     align-self: flex-start;
     margin: 16px 0 48px;
+  }
+
+  .page-subtitle {
+    font-size: 1rem;
+    margin: 0 0 48px;
   }
 }
 

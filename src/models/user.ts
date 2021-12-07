@@ -23,12 +23,6 @@ export interface obj {
   ];
 }
 
-export interface GlobalState {
-  _id?: string;
-  selectedGroup?: PlayingGroup;
-  playingGroups: PlayingGroup[];
-}
-
 export interface User {
   _id?: string;
   playingGroups: PlayingGroup[];

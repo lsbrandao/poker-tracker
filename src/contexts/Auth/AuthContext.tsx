@@ -1,4 +1,5 @@
 import { useContext, useState, createContext } from "react";
+import { useUserUpdate } from "../UserContext/UserContext";
 
 interface AuthContextType {
   user: { message: string, username: string, id: string };
@@ -20,6 +21,7 @@ export const AuthProvider = ({
   children: React.ReactNode;
 }) => {
   const [user, setUser] = useState<any>(null);
+  const { loadPlayingGroups } = useUserUpdate();
 
   const signup = async (email: string, password: string, callback: VoidFunction) => {
     const body = {
@@ -36,6 +38,7 @@ export const AuthProvider = ({
       .then(data => {
         if (!data.error) {
           setUser(data);
+          loadPlayingGroups(data.id)
           callback();
         }
       })
@@ -48,7 +51,7 @@ export const AuthProvider = ({
     const body = {
       username: email, password
     }
-    await fetch('http://localhost:3000/users/login', {
+    fetch('http://localhost:3000/users/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -59,6 +62,7 @@ export const AuthProvider = ({
       .then(data => {
         if (!data.error) {
           setUser(data);
+          loadPlayingGroups(data.id)
           callback();
         }
       })
@@ -68,7 +72,7 @@ export const AuthProvider = ({
   };
 
   const signout = async (callback: VoidFunction) => {
-    await fetch('http://localhost:3000/users/logout')
+    fetch('http://localhost:3000/users/logout')
       .then(response => response.json())
       .then(data => {
         console.log(data);

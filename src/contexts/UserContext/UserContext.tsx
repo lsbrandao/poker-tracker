@@ -1,8 +1,16 @@
 import { createContext, useContext, useReducer } from "react";
 import UserReducer from "./UserReducer"
-import { GlobalState, PlayingGroup } from "../../models/user";
+import { PlayingGroup } from "../../models/user";
+
+
+export interface GlobalState {
+  playingGroups: PlayingGroup[];
+  selectedGroup?: PlayingGroup;
+}
+
 
 export interface UserActions {
+  loadPlayingGroups: (userId: string) => void
   addPlayingGroup: (group: PlayingGroup) => void
   selectPlayingGroup: (group: PlayingGroup) => void
   editPlayingGroup: (group: PlayingGroup) => void
@@ -10,6 +18,7 @@ export interface UserActions {
 }
 
 export enum UserActionsTypes {
+  LOAD_GROUP,
   ADD_GROUP,
   SELECT_GROUP,
   EDIT_GROUP,
@@ -17,86 +26,12 @@ export enum UserActionsTypes {
 }
 
 //initial state
-const initialState: GlobalState = {
-  _id: '123',
-  playingGroups: [{
-    _id: '1234',
-    name: "Group 1",
-    playersNames: ["Player 1", "Player 2", "Player 3"],
-    playedMonths: [
-      {
-        name: "November",
-        isMonthClosed: true,
-        sessions: [
-          {
-            name: "Session 1",
-            date: "04-11-2021",
-            totalDolarsAmount: 120,
-            playersResult: [
-              {
-                playerName: "Player 1",
-                buyins: 1,
-                rebuys: 1,
-                totalChips: 30,
-                result: 10,
-              },
-            ],
-          },
-          {
-            name: "Session 2",
-            date: "11-11-2021",
-            totalDolarsAmount: 50,
-            playersResult: [
-              {
-                playerName: "Player 1",
-                buyins: 1,
-                rebuys: 1,
-                totalChips: 30,
-                result: 10,
-              },
-              {
-                playerName: "Player 2",
-                buyins: 1,
-                rebuys: 2,
-                totalChips: 60,
-                result: 30,
-              },
-            ],
-          },
-        ],
-      },
-      {
-        name: "October",
-        isMonthClosed: true,
-        sessions: [{
-          name: "Session 1",
-          date: "11-10-2021",
-          totalDolarsAmount: 50,
-          playersResult: [
-            {
-              playerName: "Player 1",
-              buyins: 1,
-              rebuys: 1,
-              totalChips: 30,
-              result: 10,
-            },
-            {
-              playerName: "Player 2",
-              buyins: 1,
-              rebuys: 2,
-              totalChips: 60,
-              result: 30,
-            },
-          ],
-        },],
-      },
-    ],
-  }]
-}
+const initialState: GlobalState = { playingGroups: [] }
 
 //Creating contexts
 export const UserContext = createContext(initialState);
 export const UserUpdateContext = createContext<UserActions>({
+  loadPlayingGroups: (userId: string) => null,
   addPlayingGroup: (group: PlayingGroup) => null,
   selectPlayingGroup: (group: PlayingGroup) => null,
   editPlayingGroup: (group: PlayingGroup) => null,
@@ -112,6 +47,32 @@ export const UserProvider = ({ children }: { children: JSX.Element }) => {
   const [state, dispatch] = useReducer(UserReducer, initialState);
 
   //Actions
+  async function loadPlayingGroups(userId: string) {
+    console.log("load")
+    const url = "http://localhost:3000/groups"
+    const headers = new Headers({
+      'author': userId
+    });
+    try {
+      const res = await fetch(url, {
+        headers: headers
+      });
+      const json = await res.json();
+      console.log(json)
+      // setResponse(json);
+      // setIsLoading(false);
+
+      dispatch({
+        type: UserActionsTypes.LOAD_GROUP,
+        payload: json
+      })
+    } catch (error: any) {
+      console.log(error)
+      // setError(error);
+      // setIsLoading(false);
+    }
+
+  }
   function addPlayingGroup(group: PlayingGroup) {
     dispatch({
       type: UserActionsTypes.ADD_GROUP,
@@ -139,7 +100,7 @@ export const UserProvider = ({ children }: { children: JSX.Element }) => {
 
   return (
     <UserContext.Provider value={{ playingGroups: state.playingGroups }}>
-      <UserUpdateContext.Provider value={{ addPlayingGroup, selectPlayingGroup, editPlayingGroup, deletePlayingGroup }}>
+      <UserUpdateContext.Provider value={{ loadPlayingGroups, addPlayingGroup, selectPlayingGroup, editPlayingGroup, deletePlayingGroup }}>
         {children}
       </UserUpdateContext.Provider>
     </UserContext.Provider >

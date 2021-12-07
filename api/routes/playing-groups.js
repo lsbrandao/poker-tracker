@@ -19,16 +19,25 @@ const validatePlayingGroup = (req, res, next) => {
 // GET Playing groups
 router.get(
   "/",
-  isLoggedIn,
+  // isLoggedIn,
   catchAsync(async (req, res) => {
-    const playingGroups = await PlayingGroup.find({});
-    res.send(playingGroups);
+    const { author } = req.headers;
+    // TO DO: remove this - only for dev
+    if (!author) {
+      const playingGroups = await PlayingGroup.find({}).populate("author");
+      res.send(playingGroups);
+    } else {
+      const playingGroups = await PlayingGroup.find({
+        author: author,
+      }).populate("author");
+      res.send(playingGroups);
+    }
   })
 );
 
 // GET specific group
 router.get(
-  "/deatils/:id",
+  "/details/:id",
   isLoggedIn,
   catchAsync(async (req, res) => {
     const playingGroup = await PlayingGroup.findById(req.params.id);
@@ -79,16 +88,60 @@ router.get(
   "/makeGroup",
   catchAsync(async (req, res) => {
     const group1 = new PlayingGroup({
+      author: "61ae6bf416664ca463b6aa58",
       name: "Group 1",
-      playerNames: ["Player 1", "Player 2", "Player 3"],
+      playersNames: ["Player 1", "Player 2", "Player 3"],
       playedMonths: [
         {
-          name: "November",
+          name: "October",
+          monthNumber: 10,
           isMonthClosed: true,
           sessions: [
             {
               name: "Session 1",
-              date: "04-11-2021",
+              date: "10-04-2021",
+              totalDolarsAmount: 120,
+              playersResults: [
+                {
+                  playerName: "Player 1",
+                  buyins: 1,
+                  rebuys: 1,
+                  totalChips: 100,
+                  result: 80,
+                },
+              ],
+            },
+            {
+              name: "Session 2",
+              date: "10-11-2021",
+              totalDolarsAmount: 50,
+              playersResults: [
+                {
+                  playerName: "Player 1",
+                  buyins: 1,
+                  rebuys: 1,
+                  totalChips: 60,
+                  result: 40,
+                },
+                {
+                  playerName: "Player 2",
+                  buyins: 1,
+                  rebuys: 2,
+                  totalChips: 120,
+                  result: 90,
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: "November",
+          monthNumber: 11,
+          isMonthClosed: true,
+          sessions: [
+            {
+              name: "Session 1",
+              date: "11-04-2021",
               totalDolarsAmount: 120,
               playersResults: [
                 {
@@ -123,16 +176,12 @@ router.get(
             },
           ],
         },
-        {
-          name: "October",
-          isMonthClosed: true,
-          sessions: [],
-        },
       ],
     });
     const group2 = new PlayingGroup({
+      author: "61ae6bf416664ca463b6aa58",
       name: "Group 2",
-      playerNames: ["Player 4", "Player 5", "Player 6"],
+      playersNames: ["Player 4", "Player 5", "Player 6"],
       playedMonths: [
         {
           name: "November",

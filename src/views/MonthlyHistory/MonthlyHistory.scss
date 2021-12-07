@@ -1,0 +1,14 @@
+@import "../../theme/theme.scss";
+
+.monthly-history-container {
+  width: 90%;
+  margin: auto;
+
+  .page-title {
+    margin-bottom: 8px;
+  }
+
+  .chart-container {
+    margin-bottom: 48px;
+  }
+}

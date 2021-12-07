@@ -2,17 +2,22 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const PlayingGroupSchema = new Schema({
+  author: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
   name: {
     type: String,
     required: true,
   },
-  playerNames: {
+  playersNames: {
     type: [String],
     required: true,
   },
   playedMonths: [
     {
       name: String,
+      monthNumber: Number,
       isMonthClosed: { type: Boolean, required: true },
       sessions: {
         type: [

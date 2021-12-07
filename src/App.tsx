@@ -7,11 +7,12 @@ import RequireAuth from "./contexts/Auth/RequireAuth";
 import { UserProvider } from "./contexts/UserContext/UserContext";
 import EditGroup from "./views/EditGroup/EditGroup";
 import Layout from "./components/Layout/Layout";
+import MonthlyHistory from "./views/MonthlyHistory/MonthlyHistory";
 
 function App() {
   return (
-    <AuthProvider>
-      <UserProvider>
+    <UserProvider>
+      <AuthProvider>
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/" element={
@@ -20,6 +21,8 @@ function App() {
             </RequireAuth>}>
             <Route path="/groups" element={<PlayingGroups />} />
             <Route path="/edit-groups" element={<EditGroup />} />
+            <Route path="/edit-groups" element={<EditGroup />} />
+            <Route path="/months" element={<MonthlyHistory />} />
           </Route>
           {/* <Route index element={<Home />} />
       <Route path="about" element={<About />} />
@@ -30,8 +33,8 @@ function App() {
             routes for. */}
           {/* <Route path="*" element={<NoMatch />} /> */}
         </Routes>
-      </UserProvider>
-    </AuthProvider>
+      </AuthProvider>
+    </UserProvider>
   );
 }
 

@@ -6,13 +6,17 @@ import EditIcon from "../../assets/edit-icon.svg";
 import { useUser } from "../../contexts/UserContext/UserContext"
 import { PlayingGroup } from "../../models/user";
 
+
 const PlayingGroups = () => {
   const { playingGroups } = useUser();
   const navigate = useNavigate();
-  console.log(playingGroups)
 
   const onEditGroup = (group: PlayingGroup) => {
     navigate("/edit-groups", { state: group })
+  }
+
+  const onSelectGroup = (group: PlayingGroup) => {
+    navigate("/months", { state: group })
   }
 
   return (
@@ -21,7 +25,7 @@ const PlayingGroups = () => {
 
       {playingGroups.map((group: PlayingGroup, index: number) => (
         < Card key={group._id} >
-          <div className="flex-container space-between">
+          <div onClick={() => onSelectGroup(group)} className="flex-container space-between">
             <h2 className="group-name">{group.name}</h2>
             <button className="edit-group-btn" onClick={() => onEditGroup(group)}>
               <img src={EditIcon} alt="Edit group" />
